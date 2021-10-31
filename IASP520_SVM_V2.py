@@ -1,7 +1,7 @@
 #V2.0 
 #change all the data, now it's base on relation not price. 
 #Increase the training Data set.
-from yahoo_finance import Share  #没有该模块了，matplotlib_finance也还没学会用
+# from yahoo_finance import Share  没有该模块了
 from pandas import Series,DataFrame
 import pandas as pd
 import numpy as np
@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.svm import SVR
 from sklearn.metrics import r2_score
 
-# 导入数据
+# 导入另找的谷歌股价数据
 StockDate = pd.read_csv("GOOG.csv") 
 StockDate.index = StockDate.Date
 StockDate = DataFrame.sort_index(StockDate) #sort
