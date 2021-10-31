@@ -1,29 +1,28 @@
 #V2.0 
 #change all the data, now it's base on relation not price. 
 #Increase the training Data set.
-from yahoo_finance import Share
+from yahoo_finance import Share  #没有该模块了，matplotlib_finance也还没学会用
 from pandas import Series,DataFrame
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm
+from sklearn.model_selection import train_test_split 
+from sklearn.svm import SVR
+from sklearn.metrics import r2_score
 
-yaho = Share('YHOO') #choose stock
-startday='2015-11-1' #choose first day
-endday='2016-11-23' #choose end day
-train = 70 #How many data for train, 9 is the least.
-
-#Data processing
-StockDate = DataFrame(yaho.get_historical(startday, endday))
+# 导入数据
+StockDate = pd.read_csv("GOOG.csv") 
 StockDate.index = StockDate.Date
 StockDate = DataFrame.sort_index(StockDate) #sort
+Data = StockDate.drop(['Date','Adj Close'],axis=1) 
+Data=Data.astype(float)
 
+train = 70 #How many data for train, 9 is the least.
 L=len(StockDate)
 total_predict_data=L-train
 
-#draw
-Data = StockDate.drop(['Date','Symbol','Adj_Close'],axis=1) 
-Data=Data.astype(float)
+#绘图
 ax=Data.plot(secondary_y=['Volume'])
 ax.set_ylabel('Value')
 ax.right_ax.set_ylabel('Volume')
